@@ -38,5 +38,5 @@ exports.initializingPassport = (passport)=>{
 exports.isAuthenticated = (req,res,next)=>{
     if(req.user) return next();
     console.log("not authenticated")
-    res.redirect('/login');
+    res.redirect('/');
 }

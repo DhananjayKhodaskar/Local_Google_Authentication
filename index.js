@@ -84,6 +84,8 @@ app.get('/logout',async(req,res)=>{
  })
  app.get('/',(req,res)=>{
 //    console.log(req.user.email);
+
+
     res.render('index.ejs',{user:req.user}); 
     
 })
@@ -94,16 +96,15 @@ app.get('/changepassword',isAuthenticated,(req,res)=>{
 
 app.post('/changepassword',isAuthenticated,async(req,res)=>{
     const newPassword =req.body.password;
-    const username = req.user.username;
-
-    console.log(req.body.password);
-    // console.log(req.user.username);
-
+    let username;
+    if(!req.user.email){
+        username=req.user.username;
+    }else{
+        username=req.user.email;
+    }
     const user = await User.findOne({username:username})
-    console.log(user);
     user.password=newPassword;
     user.save();
-    console.log(user);
     res.redirect('/')
 })
 

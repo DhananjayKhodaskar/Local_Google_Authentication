@@ -11,7 +11,7 @@ exports.connectMongoose =() =>{
 }
 
 const userSchema = new mongoose.Schema({
-    name:String,
+    displayName:String,
     username:{
         type:String,
         required:true,

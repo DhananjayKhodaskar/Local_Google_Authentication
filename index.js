@@ -83,7 +83,7 @@ app.get('/logout',async(req,res)=>{
      
  })
  app.get('/',(req,res)=>{
-   
+   console.log(req.user);
     res.render('index.ejs',{user:req.user}); 
     
 })

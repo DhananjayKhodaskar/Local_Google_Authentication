@@ -69,7 +69,7 @@ app.post('/login'
 ,passport.authenticate("local",
 {failureRedirect:'/signup',
 successRedirect:'/'
-}),(req,res)=>{
+}),(req,res)=>{ 
     
 }) 
 

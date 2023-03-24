@@ -1,6 +1,7 @@
 const express= require('express');
 const app = express();
 const path = require('path');
+const bcrypt = require('bcrypt');
 const {connectMongoose} = require('./database')
 const ejs= require('ejs');
 const {User} = require('./database')
@@ -52,10 +53,19 @@ app.get('/auth/google/failure',(req,res)=>{
 app.post('/signup',async(req,res)=>{
     const user = await User.findOne({username:req.body.username})
     if(user)return res.status(400).send("User Already Exists");
- 
-    const newUser = await User.create(req.body);
+    const displayName = req.body.displayName;
+    const username = req.body.username;
+    const password = req.body.password;
+    let newpass= await bcrypt.hash(req.body.password,10);
+    const newUser = new User({displayName,username,password});
+    newUser.save();
+    console.log(newUser);
+    // await User.create({displayName,username,newpass});
     res.redirect('/login');
  })
+
+
+
  app.get('/login',(req,res)=>{
     res.render('login.ejs',{user:req.user});
 })

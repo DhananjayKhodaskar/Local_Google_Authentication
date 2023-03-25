@@ -4,6 +4,8 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const {connectMongoose} = require('./database')
 const ejs= require('ejs');
+const { check } = require('express-validator/check');
+const { validationResult } = require('express-validator/check');
 const nodemailer = require('nodemailer');
 const sendgridtransport = require('nodemailer-sendgrid-transport');
 const {User} = require('./database')
@@ -57,12 +59,30 @@ app.get('/auth/google/failure',(req,res)=>{
 
 
 
-app.post('/signup',async(req,res)=>{
+app.post('/signup',
+[check('username').isEmail().withMessage('please enter valid email'),
+check('password','password length should be greater than 5 ').isLength({min:5}),
+check('confirmPassword').custom((value,{req})=>{
+    if(value != req.body.password){
+        throw new Error('password have to match');
+    }
+    return true
+})]
+,async(req,res)=>{
     const user = await User.findOne({username:req.body.username})
-    if(user)return res.status(400).send("User Already Exists");
+    if(user)return res.status(400).render('signup.ejs',{user:req.user,errorMessage:"user exists",oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},validationErrors:[]});
     const displayName = req.body.displayName;
     const username = req.body.username;
-    const password = req.body.password;
+    const password = req.body.password; 
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        console.log(errors.array());
+        return res.status(422).render('signup.ejs',
+        {user:req.user,
+        errorMessage:errors.array()[0].msg,
+        oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},
+        validationErrors:errors.array()})
+    }
     let newpass= await bcrypt.hash(req.body.password,10);
     const newUser = new User({displayName,username,password});
     newUser.save();
@@ -100,7 +120,10 @@ app.post('/forgotpassword',async(req,res)=>{
 
 app.get('/signup',(req,res)=>{
   
-    res.render('signup.ejs',{user:req.user});
+    res.render('signup.ejs',{user:req.user,
+        errorMessage:null,
+        oldInput:{displayName:"",username:"",password:"",confirmPassword:""},validationErrors:[]}
+        ); 
 })
 
 app.post('/login'

@@ -1,16 +1,32 @@
 <%- include('partials/header'); -%>
-    <form  method="POST">
+    
+    <form  method="POST"  >
+        <% if(errorMessage){ %>
+            <p style="color: red;"><%=errorMessage  %></p>
+        <% } %>  
         <div>
             <label for="displayName">Name</label>
-            <input type="text" id="displayName" name="displayName" placeholder="Name" required>
+            <input type="text" id="displayName" name="displayName" placeholder="Name"  value="<%= oldInput.displayName %>"required>
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" id="email" name="username" placeholder="Email" required>
+            <input class="<%= validationErrors.find(e=>e.param === 'username') ? "invalid":"" %>"
+            type="email" 
+            id="email" 
+            name="username" 
+            placeholder="Email" 
+            value="<%= oldInput.username %>" 
+            required>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input class="<%= validationErrors.find(e=>e.param === 'confirmPassword') ? "invalid":"" %>"
+            type="password" id="password" name="password" placeholder="Password" value="<%= oldInput.password %>" required>
+        </div>
+        <div>
+            <label for="confirmPassword">Password</label>
+            <input class="<%= validationErrors.find(e=>e.param === 'confirmPassword') ? "invalid":"" %>" 
+            type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" value="<%= oldInput.confirmPassword %>" required>
         </div>
         <button type="submit " class="btn">Register</button>
         

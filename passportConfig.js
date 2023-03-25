@@ -6,8 +6,8 @@ exports.initializingPassport = (passport)=>{
         passReqToCallback:true,
     },async(req,username,password,done)=>{
         try {
-            const lowerCaseUsername=username.toLowerCase();
-            const user = await User.findOne({lowerCaseUsername})
+            
+            const user = await User.findOne({username})
         
         if(!user ){
             return done(null,false,req.flash('error','User Not Found'));

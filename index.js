@@ -63,15 +63,15 @@ app.post('/signup',
 check('password','password length should be greater than 5 ').isLength({min:5}),
 check('confirmPassword').custom((value,{req})=>{
     if(value != req.body.password){
-        throw new Error('password have to match');
+        throw new Error('Password Have To Match');
     }
     return true
 })]
 ,async(req,res)=>{
     const user = await User.findOne({username:req.body.username})
-    if(user)return res.status(400).render('signup.ejs',{user:req.user,errorMessage:"user exists",oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},validationErrors:[]});
+    if(user)return res.status(400).render('signup.ejs',{user:req.user,errorMessage:"User Already Exists",oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},validationErrors:[]});
     const displayName = req.body.displayName;
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const password = req.body.password; 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -152,3 +152,4 @@ app.post('/changepassword',isAuthenticated,async(req,res)=>{
 app.listen(8000,()=>{
     console.log("server running on port 8000");
 });
+

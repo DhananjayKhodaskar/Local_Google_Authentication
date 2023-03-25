@@ -1,20 +1,37 @@
 <%- include('partials/header'); -%>
-    <%= errors %>
-    <form  method="POST">
+    <form  method="POST" class="login-card">
         <h1>Login</h1>
         <div>
             <label for="email">Email</label>
             <input type="email" id="email" name="username" placeholder="Email" required>
-        </div>
+            <div class="email error">
+                <% if(errors == 'User Not Found'){ %>
+                <%= errors %></div>
+                <% } %>
+            </div>
         <div>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" required>
+            <div class="email error">
+                <% if(errors == 'Incorrect Password'){ %>
+                <%= errors %></div>
+                <% } %>
+            </div>
         </div>
         <button type="submit" class="btn">Login</button>
-        <a href="/forgotpassword">Forgot Password</a>
-        <br>
-        <a href="/auth/google">Login with Google</a>
-         
+        <a href="/auth/google" class="google-button">
+            <span class="google-button__icon">
+              <svg viewBox="0 0 366 372" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M305.86 171.56c0-11.44-.92-22.37-2.54-32.96H186v62.35h86.47a78.32 78.32 0 01-33.91 51.15v42.2h54.84c32.07-29.5 50.53-72.99 50.53-123.14z"/>
+                <path fill="#34A853" d="M186 330.48c45.75 0 84.13-15.01 112.36-40.89l-54.84-42.2c-15.14 10.33-34.61 16.39-57.52 16.39-44.13 0-81.58-29.81-94.76-70.14H34.83v44.03c28.3 55.59 86.37 93.42 151.17 93.42z"/>
+                <path fill="#FBBC05" d="M91.24 202.48c-5.44-16.43-5.44-32.96 0-49.4V109.05H34.83a166.58 166.58 0 000 154.9l56.41-61.47z"/>
+                <path fill="#EA4335" d="M186 91.05c22.91 0 42.38 6.06 57.52 16.39l54.84-42.2C270.13 26.01 231.75 11 186 11 121.2 11 63.13 48.83 34.83 104.42l56.41 61.47c13.18-40.33 50.63-70.14 94.76-70.14z"/>
+              </svg>
+            </span>
+            <span class="google-button__text">Sign in with Google</span>
+          </a>
+          
+          
     </form>
 
     <%- include('partials/footer'); -%>

@@ -141,3 +141,57 @@ footer{
 .invalid{
   border-color: red;
 }
+.sign-up-card {
+  margin-top: -110px;
+  padding-top: 20px;
+}
+
+.sign-up-card #submit-btn {
+  margin-bottom: -15px;
+}
+
+.login-card{
+  margin-top: -50px;
+}
+
+
+.google-button {
+  background-color: #ffffff;
+  color: #737373;
+  border: 1px solid #737373;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  margin-top:20px ;
+}
+
+.google-button:hover {
+  background-color: #f2f2f2;
+  border-color: #f2f2f2;
+}
+
+.google-button:active {
+  box-shadow: none;
+}
+
+.google-button__icon {
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+}
+
+.google-button__text {
+  margin: 0;
+  padding: 0;
+}
+
+

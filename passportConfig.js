@@ -6,10 +6,11 @@ exports.initializingPassport = (passport)=>{
         passReqToCallback:true,
     },async(req,username,password,done)=>{
         try {
-            const user = await User.findOne({username})
+            const lowerCaseUsername=username.toLowerCase();
+            const user = await User.findOne({lowerCaseUsername})
         
         if(!user ){
-            return done(null,false,req.flash('error','User not Found'));
+            return done(null,false,req.flash('error','User Not Found'));
         } 
         bcrypt.compare(password, user.password, function(err, result) {
             // result == true

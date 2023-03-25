@@ -1,6 +1,7 @@
 <%- include('partials/header'); -%>
     
     <form  method="POST"  >
+        <h1>Sign Up</h1>
         <% if(errorMessage){ %>
             <p style="color: red;"><%=errorMessage  %></p>
         <% } %>  
@@ -28,7 +29,8 @@
             <input class="<%= validationErrors.find(e=>e.param === 'confirmPassword') ? "invalid":"" %>" 
             type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" value="<%= oldInput.confirmPassword %>" required>
         </div>
-        <button type="submit " class="btn">Register</button>
+        <button id= "submit-btn" type="submit " class="btn" disabled>Register</button>
         
     </form>
+    
     <%- include('partials/footer'); -%>

@@ -1,24 +1,22 @@
 //this code is in new brach and not in master branch 
 const express= require('express');
 const app = express();
-var flash = require('connect-flash');
+const flash = require('connect-flash');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const {connectMongoose} = require('./database')
 const ejs= require('ejs');
 const { check } = require('express-validator/check');
 const { validationResult } = require('express-validator/check');
-const nodemailer = require('nodemailer');
 const sendgridtransport = require('nodemailer-sendgrid-transport');
-const {User} = require('./database')
+const {User} = require('./database');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const apiKeyMail='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';
-const { initializingPassport } = require('./passportConfig');
+const { initializingPassport } = require('./config/passport-local-strategy');
 const expressSession = require('express-session');
-const { isAuthenticated } = require('./passportConfig');
+const { isAuthenticated } = require('./config/passport-local-strategy');
 const { error } = require('console');
-require('./googleAuthfine')
+const googleOauth2 = require('./config/passport-google-oauth2-strategy');
 
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -59,8 +57,7 @@ app.get('/auth/google/failure',(req,res)=>{
 
 
 
-app.post('/signup',
-[check('username').isEmail().withMessage('please enter valid email'),
+app.post('/signup',[check('username').isEmail().withMessage('please enter valid email'),
 check('password','password length should be greater than 5 ').isLength({min:5}),
 check('confirmPassword').custom((value,{req})=>{
     if(value != req.body.password){

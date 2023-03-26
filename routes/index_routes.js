@@ -75,4 +75,24 @@ router.get('/signup',(req,res)=>{
         ); 
 });
 
+
+//GOOGLE AUTH ROUTES
+
+router.get('/auth/google/failure',(req,res)=>{
+    res.send('Failure from Google sign in');
+});
+
+router.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+      
+        successRedirect: '/',
+        failureRedirect: '/auth/google/failure'
+}));
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
+));
+
+
 module.exports = router;

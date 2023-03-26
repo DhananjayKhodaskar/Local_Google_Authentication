@@ -4,6 +4,7 @@ const app = express();
 const flash = require('connect-flash');
 const path = require('path');
 const index_routes = require('./routes/index_routes');
+const user_routes = require('./routes/user_routes');
 const bcrypt = require('bcrypt');
 const {connectMongoose} = require('./config/mongoose')
 const ejs= require('ejs');
@@ -40,61 +41,10 @@ app.set('view-engine','ejs');
 const startMongoose = connectMongoose();
 const startingPassport = initializingPassport(passport);
 
-
-//Google Auth
-app.get('/auth/google',
-  passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
-));
-app.get( '/auth/google/callback',
-    passport.authenticate( 'google', {
-      
-        successRedirect: '/',
-        failureRedirect: '/auth/google/failure'
-}));
-
-app.get('/auth/google/failure',(req,res)=>{
-    res.send('Failure from Google sign in');
-  })
-
-
-
-
-
-
-
-
 //GET LOGOUT
-app.get('/logout',async(req,res)=>{
-    await req.logout(()=>{
-     res.redirect('/');
-    });   
- })
  
-
-//GET POST CHANGEPASSWORD
-app.get('/changepassword',isAuthenticated,(req,res)=>{
-    res.render('changepassword.ejs',{user:req.user,errors:null}); 
-})
-
-app.post('/changepassword',isAuthenticated,async(req,res)=>{
-    const newPassword =req.body.password;
-    let username;
-    
-    if(!req.user.email){
-        username=req.user.username;
-    }else{
-        username=req.user.email;
-    }
-    const user = await User.findOne({username:username})
-    user.password=newPassword;
-    user.save();
-    res.redirect('/')
-})
-
-
+app.use(user_routes);
 app.use(index_routes);
-
 
 //APP LISTEN
 app.listen(8000,()=>{

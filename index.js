@@ -1,6 +1,7 @@
 //this code is in new brach and not in master branch 
 const express= require('express');
 const app = express();
+const PORT = process.env.PORT || 8000;
 const flash = require('connect-flash');
 const path = require('path');
 const index_routes = require('./routes/home_routes');
@@ -18,7 +19,7 @@ const expressSession = require('express-session');
 const { isAuthenticated } = require('./config/passport-local-strategy');
 const { error } = require('console');
 const googleOauth2 = require('./config/passport-google-oauth2-strategy');
-
+require('dotenv').config();
 
 
 //MIDDLEWARES
@@ -47,7 +48,7 @@ app.use(user_routes);
 app.use(index_routes);
 
 //APP LISTEN
-app.listen(8000,()=>{
+app.listen(PORT,()=>{
     console.log("server running on port 8000");
 });
 

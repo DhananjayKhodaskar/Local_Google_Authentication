@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;
-const {User} = require('../database')
+const {User} = require('../user')
 const bcrypt = require('bcrypt');
 exports.initializingPassport = (passport)=>{
     passport.use (new LocalStrategy({

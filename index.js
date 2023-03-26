@@ -3,6 +3,7 @@ const express= require('express');
 const app = express();
 const flash = require('connect-flash');
 const path = require('path');
+const index_routes = require('./routes/index_routes');
 const bcrypt = require('bcrypt');
 const {connectMongoose} = require('./config/mongoose')
 const ejs= require('ejs');
@@ -94,20 +95,10 @@ app.get('/signup',(req,res)=>{
         errorMessage:null,
         oldInput:{displayName:"",username:"",password:"",confirmPassword:""},validationErrors:[]}
         ); 
-})
+});
 
-//GET AND POST LOGIN
-app.get('/login',(req,res)=>{
 
-    const errors = req.flash().error||[];
-    res.render('login.ejs',{user:req.user,errors
-    });
-})
 
-app.post('/login',passport.authenticate("local",{failureRedirect:'/login',successRedirect:'/',failureFlash: true}),
-(req,res)=>{ 
-
-}) 
 
 //GET LOGOUT
 app.get('/logout',async(req,res)=>{
@@ -115,10 +106,7 @@ app.get('/logout',async(req,res)=>{
      res.redirect('/');
     });   
  })
- app.get('/',(req,res)=>{
-
-    res.render('index.ejs',{user:req.user});   
-})
+ 
 
 //GET POST CHANGEPASSWORD
 app.get('/changepassword',isAuthenticated,(req,res)=>{
@@ -139,6 +127,10 @@ app.post('/changepassword',isAuthenticated,async(req,res)=>{
     user.save();
     res.redirect('/')
 })
+
+
+app.use(index_routes);
+
 
 //APP LISTEN
 app.listen(8000,()=>{

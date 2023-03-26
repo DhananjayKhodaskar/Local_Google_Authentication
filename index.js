@@ -68,11 +68,11 @@ check('confirmPassword').custom((value,{req})=>{
     return true
 })]
 ,async(req,res)=>{
-    const user = await User.findOne({username:req.body.username})
-    if(user)return res.status(400).render('signup.ejs',{user:req.user,errorMessage:"User Already Exists",oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},validationErrors:[]});
     const displayName = req.body.displayName;
     const username = req.body.username.toLowerCase();
     const password = req.body.password; 
+    const user = await User.findOne({username:username})
+    if(user)return res.status(400).render('signup.ejs',{user:req.user,errorMessage:"User Already Exists",oldInput:{displayName:req.body.displayName,username:req.body.username,password:req.body.password,confirmPassword:req.body.confirmPassword},validationErrors:[]}); 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         console.log(errors.array());

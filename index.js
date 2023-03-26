@@ -8,7 +8,6 @@ const {connectMongoose} = require('./config/mongoose')
 const ejs= require('ejs');
 const { check } = require('express-validator/check');
 const { validationResult } = require('express-validator/check');
-const sendgridtransport = require('nodemailer-sendgrid-transport');
 const {User} = require('./models/user');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -18,6 +17,9 @@ const { isAuthenticated } = require('./config/passport-local-strategy');
 const { error } = require('console');
 const googleOauth2 = require('./config/passport-google-oauth2-strategy');
 
+
+
+//MIDDLEWARES
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -30,11 +32,12 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 app.set('view-engine','ejs'); 
-connectMongoose();
-initializingPassport(passport);
+
+
+//CALLING THE FUNCTIONS
+const startMongoose = connectMongoose();
+const startingPassport = initializingPassport(passport);
 
 
 //Google Auth
@@ -48,15 +51,12 @@ app.get( '/auth/google/callback',
         successRedirect: '/',
         failureRedirect: '/auth/google/failure'
 }));
+
 app.get('/auth/google/failure',(req,res)=>{
     res.send('Failure from Google sign in');
   })
 
-
-
-
-
-
+//GET AND POST SIGNUP
 app.post('/signup',[check('username').isEmail().withMessage('please enter valid email'),
 check('password','password length should be greater than 5 ').isLength({min:5}),
 check('confirmPassword').custom((value,{req})=>{
@@ -88,16 +88,6 @@ check('confirmPassword').custom((value,{req})=>{
     res.redirect('/login');
  })
 
-
-
- app.get('/login',(req,res)=>{
-
-    const errors = req.flash().error||[];
-    res.render('login.ejs',{user:req.user,errors
-    });
-})
-
-
 app.get('/signup',(req,res)=>{
   
     res.render('signup.ejs',{user:req.user,
@@ -106,27 +96,31 @@ app.get('/signup',(req,res)=>{
         ); 
 })
 
+//GET AND POST LOGIN
+app.get('/login',(req,res)=>{
+
+    const errors = req.flash().error||[];
+    res.render('login.ejs',{user:req.user,errors
+    });
+})
+
 app.post('/login',passport.authenticate("local",{failureRedirect:'/login',successRedirect:'/',failureFlash: true}),
 (req,res)=>{ 
 
 }) 
 
-app.get('/profile',isAuthenticated,(req,res)=>{
-    res.send(req.user);
-})
+//GET LOGOUT
 app.get('/logout',async(req,res)=>{
     await req.logout(()=>{
      res.redirect('/');
-    });
-     
+    });   
  })
  app.get('/',(req,res)=>{
 
-
-    res.render('index.ejs',{user:req.user}); 
-    
+    res.render('index.ejs',{user:req.user});   
 })
 
+//GET POST CHANGEPASSWORD
 app.get('/changepassword',isAuthenticated,(req,res)=>{
     res.render('changepassword.ejs',{user:req.user,errors:null}); 
 })
@@ -146,7 +140,7 @@ app.post('/changepassword',isAuthenticated,async(req,res)=>{
     res.redirect('/')
 })
 
-
+//APP LISTEN
 app.listen(8000,()=>{
     console.log("server running on port 8000");
 });

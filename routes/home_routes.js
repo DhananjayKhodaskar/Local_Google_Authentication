@@ -29,5 +29,5 @@ router.post('/login',passport.authenticate("local",{failureRedirect:'/login',suc
 router.get( '/auth/google/callback',passport.authenticate( 'google', {successRedirect: '/',failureRedirect: '/login'}));
 router.get('/auth/google',passport.authenticate('google', { scope:[ 'email', 'profile' ] }));
 
-
+//EXPORTING THE ROUTER
 module.exports = router;

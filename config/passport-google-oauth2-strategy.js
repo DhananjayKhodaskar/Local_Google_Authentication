@@ -2,7 +2,7 @@ const passport = require('passport');
 const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const {User} = require("../models/user");
 const crypto = require('crypto');
-
+//USING PASSPORT GOOGLE OAUTH-2.0
 passport.use(new GoogleStrategy({
     clientID:     '312563676331-o6dfb5icitucjmkvtt4uqmecgheu7jaq.apps.googleusercontent.com',
     clientSecret: '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',

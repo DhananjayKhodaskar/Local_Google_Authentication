@@ -1,6 +1,7 @@
 const mongoose =require('mongoose');
 const bcrypt = require('bcrypt');
 
+//USER SCHEMA
 const userSchema = new mongoose.Schema({
     displayName:{
         type:String,

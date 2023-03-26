@@ -1,6 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const {User} = require('../models/user')
 const bcrypt = require('bcrypt');
+// USING PASSPORT LOCAL STRATEGY
 exports.initializingPassport = (passport)=>{
     passport.use (new LocalStrategy({
         passReqToCallback:true,

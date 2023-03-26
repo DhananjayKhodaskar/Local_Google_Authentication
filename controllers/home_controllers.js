@@ -37,16 +37,16 @@ module.exports.post_signup = async(req,res)=>{
     newUser.save();
     console.log(newUser);
     res.redirect('/login');
- };
+};
 
 
- module.exports.get_signup =(req,res)=>{
+module.exports.get_signup =(req,res)=>{
   
     res.render('signup.ejs',{user:req.user,
     errorMessage:null,
     oldInput:{displayName:"",username:"",password:"",confirmPassword:""},validationErrors:[]}
     ); 
-}
+};
 
 
 module.exports.get_home_page =(req,res)=>{

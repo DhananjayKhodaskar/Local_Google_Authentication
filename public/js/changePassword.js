@@ -4,6 +4,7 @@ const submitBtn = document.getElementById('submit-btn');
 const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError");
 
+//TO VALIDATE USER INPUT WHILE CHANGING PASSWORD WITH JAVASCRIPT
 function checkPasswordMatch() {
 
   if(passwordInput.value.length < 5){
@@ -24,7 +25,7 @@ function checkPasswordMatch() {
     submitBtn.style.cursor="pointer";
   } else {
     submitBtn.disabled = true;
-    submitBtn.style.opacity = "0.3";
+    submitBtn.style.opacity = "0.5";
     submitBtn.style.cursor="auto";
   }
 }

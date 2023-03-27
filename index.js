@@ -49,6 +49,6 @@ app.use(index_routes);
 
 //APP LISTEN
 app.listen(PORT,()=>{
-    console.log("server running on port 8000");
+    console.log(`server running on port ${PORT}`);
 });
 

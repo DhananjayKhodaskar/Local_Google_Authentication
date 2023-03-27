@@ -1,7 +1,7 @@
 
 # 🛡️Authentication System
 
-🔴This Authentication System is made with NODEJS.🔴It Authenticates User and Direct them to Homescreen/Index page.🔴You can use `isAuthenticated` function to give access to only signed in users. 🔴 I used Pass Google OAuth2.0 to login/signup using Google. 🔴 I also used passport local to Authentication Users using classic singnup and sign in way. 
+🔴This Authentication System is made with NODEJS.🔴It Authenticates User and Direct them to Homescreen/Index page.🔴You can use `isAuthenticated` function to Protect Routes against Unauthenticated Users. 🔴 I used Passport Google OAuth2.0 to login/signup using Google. 🔴 I also used passport local to Authentication Users using classic singnup and sign in way. 
 🔴I have used MongoDB as Database to store User Schema.
 ## 🪧Demo
 
@@ -60,7 +60,7 @@ https://dhananjayk-authentication-system.onrender.com/
     * Shows alert to user when user tries to login with email which is not signed up.
     * Shows alert to user when user enters wrong password.
     
-● NOTE - I INTENTIONALLY REMOVED FRONT END VALIDATION AND DID NOT ADDED `REQUIRED` IN MY HTML CODE TO SHOWCASE MY SERVER SIDE VALIDATION.
+● NOTE - I INTENTIONALLY REMOVED FRONT END VALIDATION AND DID NOT ADDED `required` IN MY HTML CODE TO SHOWCASE MY SERVER SIDE VALIDATION.
 ## 🚦Version
 1.0 - Running Succesfully with above feature.
 ## 👦Contact

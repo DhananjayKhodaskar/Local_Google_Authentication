@@ -31,7 +31,7 @@ https://dhananjayk-authentication-system.onrender.com/
 ![Screenshot_2](https://user-images.githubusercontent.com/125384723/227832019-1cd74ffc-1f4b-4a7f-9188-a8fbc192ed4a.png)
 
 🔴Sign Up Page
-![Screenshot_3](https://user-images.githubusercontent.com/125384723/227832052-d719ef4f-6106-4a55-af6d-dd90cacf38dc.png)
+![Screenshot_1](https://user-images.githubusercontent.com/125384723/227887107-b69ea9c5-3b8b-4fce-8895-aff3a155ae0b.png)
 
 🔴Home Page (after authentication)
 ![Screenshot_4](https://user-images.githubusercontent.com/125384723/227832062-5ba11558-9554-4c89-b442-cc36bda28074.png)

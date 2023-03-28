@@ -16,7 +16,13 @@ https://dhananjayk-authentication-system.onrender.com/
 ```bash
   npm install
 ```
-3)execute below command to run the server on localhost
+3)Add `.env` file with:
+  * `PORT` - Port You can Specify on which port you want to Run Application (it runs on `PORT=8000` if you don't provide any). 
+  * `GOOGLE_CLIENT_ID` - You Got from Google for Google OAUTH from https://console.cloud.google.com/apis/credentials
+  * `GOOGLE_CLIENT_SECRET` - You Got from Google for Google OAUTH from https://console.cloud.google.com/apis/credentials
+  * `GOOGLE_CALLBACK_URL` - You Got from Google for Google OAUTH from https://console.cloud.google.com/apis/credentials
+  
+4)execute below command to run the server on localhost
 ```bash
   npm start
 ```
